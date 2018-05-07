@@ -1,9 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ReimplementingLinq
 {
     public static partial class Enumerable
     {
         public static IEnumerable<T> Empty<T>() => System.Linq.Enumerable.Empty<T>();
+
+        public static IEnumerable<int> Range(int start, int count)
+        {
+            if (count < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(count));
+            }
+            if (start + (long)count - 1L > int.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(count));
+            }
+            return RangeImpl(start, count);
+        }
+
+        private static IEnumerable<int> RangeImpl(int start, int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                yield return start + i;
+            }
+        }
     }
 }
