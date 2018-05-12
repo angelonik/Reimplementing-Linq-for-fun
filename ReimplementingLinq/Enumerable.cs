@@ -5,7 +5,7 @@ namespace ReimplementingLinq
 {
     public static partial class Enumerable
     {
-        public static IEnumerable<T> Empty<T>() => System.Linq.Enumerable.Empty<T>();
+        public static IEnumerable<T> Empty<T>() { yield break; }
 
         public static IEnumerable<int> Range(int start, int count)
         {
